@@ -161,7 +161,8 @@ class FormDatabasePlugin extends Plugin {
                 
         }
         try {
-            $this->db = $this->grav['database']->connect( $dsn, $user, $pwd, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION] );
+            $this->db = $this->grav['database']->connect( $dsn, $user, $pwd, 
+            array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8") );
         } catch (Exception $e) {
             throw new \RuntimeException($user . ":" . $pwd . " | " . $dsn . " | " . $e->getMessage());
         }
